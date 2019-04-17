@@ -5,16 +5,8 @@
 #include <vector>
 using namespace std;
 
-struct Node {
-	double* data;
-	Node* link;
-};
-Node* head = NULL;
-
-
 int main(int argc, char* argv[])
 {
-	double sequences[5];
 	vector<vector<double> > sequencesV;
 	
 	cout << "Main Menu Options\n";
@@ -28,18 +20,6 @@ int main(int argc, char* argv[])
 				int numOfVals;
 				cout << "Enter the number of values you are going to put in this sequence: ";
 				cin >> numOfVals;
-				/*
-				double* newSeq = new double[numOfVals];//an array of pointers
-				for (size_t i = 0; i < numOfVals; i++) {
-					cout << "Enter the " << i << " value: ";
-					cin >> newSeq[i];
-				}
-				cout << "The new sequence is: ";
-				for (size_t i = 0; i < numOfVals; i++) {
-					cout << newSeq[i] << " ";
-				}
-				cout << endl;
-				*/
 				vector<double> newSeqV(numOfVals);
 				for (size_t i = 0;i< numOfVals; i++) {
 					cout << "Enter value #" << i <<": ";
@@ -50,16 +30,6 @@ int main(int argc, char* argv[])
 					cout << newSeqV.at(i) << endl;
 				}
 				sequencesV.push_back(newSeqV);
-				
-
-			/*
-			Node* ptr = new Node();
-			ptr->data = newSeq;
-			ptr->link = NULL;
-			if (head == NULL) {
-				head = ptr;
-			}
-			*/
 		}
 		if (option == 2) {
 			cout << "Printing out current sequences: ";
@@ -68,23 +38,51 @@ int main(int argc, char* argv[])
 				cout << "Sequence #" << i << endl;
 				vector<double> element = { sequencesV.at(i) };
 				for (size_t i = 0; i < (double)element.size(); i++) {
-					cout << element.at(i)<<endl;
+					cout << element.at(i)<<" ";
 				}
+				cout << endl;
+			}
+		}
+		if (option == 3) {
+			cout << "Enter the number sequence you want to print and compute for";
+			int seqNum;
+			cin >> seqNum;
+			if (seqNum <= sequencesV.size()) {
+				vector<double> selected = { sequencesV.at(seqNum) };
+				cout << "Here is the sequence again: " << endl;
+				for (size_t i = 0; i < (double)selected.size(); i++) {
+					cout << selected.at(i);
+				}
+				//find the minimum
+				double min = selected.at(0);//asssume its the first
+				for (size_t i = 0; i < (double)selected.size(); i++) {
+					if (selected.at(i) <= min)
+						min = selected.at(i);
+				}
+				cout << "The minimum value is: " << min << endl;
+				//find the max
+				double max = selected.at(0);//again assume its the first
+				for (size_t i = 0; i < (double)selected.size(); i++) {
+					if (selected.at(i) >= max) {
+						max = selected.at(i);
+					}
+				}
+				cout << "The maximum value is: " << max << endl;
+				double sum = 0;
+				for (size_t i = 0; i < (double)selected.size(); i++) {
+					sum = sum+selected.at(i);
+				}
+				cout << "The sum of the values is: " << sum << endl;
+				double mean = sum / ((double)selected.size());
+				cout << "The mean is: " << mean << endl;
+			}
+			else {
+				cout << "There isn't a sequence of that index" << endl;
 			}
 		}
 		else if(option != 1 && option != 2 && option != 3 ){
+			cout << "Closing the window now.";
 			ending = true;
 		}
 	}
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
