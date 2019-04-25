@@ -25,6 +25,7 @@ int main(int argc, char* argv[])
 				int numOfVals;
 				cout << "Enter the number of values you are going to put in this sequence: ";
 				cin >> numOfVals;
+				
 				while (cin.fail() || numOfVals <=0) {
 					cout << "That is not a positive number" << endl;
 					cout << "Enter the number of values you are going to put in this sequence: ";
@@ -32,57 +33,79 @@ int main(int argc, char* argv[])
 					cin.ignore(10000,'\n');
 					cin >> numOfVals;
 				}
-				vector<double> newSeqV(numOfVals);
-				for (size_t i = 0; i < numOfVals; i++) {
-					
-					double valDouble;
-					/*
-					bool isDouble = false;
-					string val;
-					while (!isDouble) {
-						cin >> val;
-						int decimal = 0;
-						for (size_t j = 0; j < val.size(); j++) {
-							if (!isdigit(val[j])) {
-								cout<<"Not a double"<<endl;
+				cin.clear();
+				cin.ignore(10000,'\n');
+				cout << "Creating a sequence of size " << numOfVals << endl;
+				cout << "If this is not the size you want to create, press 9, if you want to continue building sequence size " << numOfVals << " press any key ";
+				string ans;
+				cin >> ans;
+				cin.clear();
+				cin.ignore(10000, '\n');
+				if (ans != "9") {
+					vector<double> newSeqV(numOfVals);
+					for (size_t i = 0; i < numOfVals; i++) {
+
+						double valDouble;
+						/*
+						bool isDouble = false;
+						string val;
+						while (!isDouble) {
+							cin >> val;
+							int decimal = 0;
+							for (size_t j = 0; j < val.size(); j++) {
+								if (!isdigit(val[j])) {
+									cout<<"Not a double"<<endl;
+									cin.clear();
+									cin.ignore(10000, '\n');
+									break;
+								}
+								if (val[j] == '.') {
+									decimal++;
+								}
+								if (decimal > 1) {
+									cout << "Incorrect input, only one decimal point allowed in a double" << endl;
+									cin.clear();
+									cin.ignore(10000, '\n');
+									break;
+								}
+
+							}
+							isDouble = true;
+						}
+						*/
+						bool valid = false;
+						while (!valid) {
+							cout << "Enter value #" << i << ": ";
+							if (cin >> newSeqV.at(i)) {
+								valid = true;
 								cin.clear();
 								cin.ignore(10000, '\n');
-								break;
+								cout << "Inputting " << newSeqV.at(i) << "... if this is not correct, press 9. Else press any key" << endl;
+								string correct;
+								cin >> correct;
+								if (correct == "9") {
+									valid = false;
+								}
 							}
-							if (val[j] == '.') {
-								decimal++;
-							}
-							if (decimal > 1) {
-								cout << "Incorrect input, only one decimal point allowed in a double" << endl;
+							else {
+								cout << "Not a properly formatted double" << endl;
 								cin.clear();
 								cin.ignore(10000, '\n');
-								break;
 							}
-							
 						}
-						isDouble = true;
+						cin.clear();
+						cin.ignore(10000, '\n');
 					}
-					*/
-					bool valid = false;
-					while (!valid) {
-						cout << "Enter value #" << i << ": ";
-						if (cin >> newSeqV.at(i))
-							valid = true;
-						else {
-							cout << "Not a properly formatted double" << endl;
-							cin.clear();
-							cin.ignore(10000,'\n');
-						}
+					cout << "Vector contents:\n";
+					for (size_t i = 0; i < (double)newSeqV.size(); i++) {
+						cout << newSeqV.at(i) << endl;
 					}
-					cin.clear();
-					cin.ignore(10000, '\n');
+					sequencesV.push_back(newSeqV);
+					continue;
 				}
-				cout << "Vector contents:\n";
-				for (size_t i = 0; i < (double)newSeqV.size(); i++) {
-					cout << newSeqV.at(i) << endl;
+				else {
+					cout << "Not creating a sequence... Returning to main menu" << endl;
 				}
-				sequencesV.push_back(newSeqV);
-				continue;
 			}
 			if (option == "2") {
 				cin.clear();
@@ -99,7 +122,6 @@ int main(int argc, char* argv[])
 				}
 			}
 			if (option == "3") {
-				
 				int seqNum;
 				bool valid = false;
 				while (!valid) {
@@ -135,7 +157,6 @@ int main(int argc, char* argv[])
 							cout << "The sum of the values is: " << sum << endl;
 							double mean = sum / ((double)selected.size());
 							cout << "The mean is: " << mean << endl;
-
 							valid = true;
 						}
 						else {
@@ -144,9 +165,8 @@ int main(int argc, char* argv[])
 							cin.ignore(1000, '\n');
 						}
 					}
-
 					else {
-						cout << "There isn't a sequence of that index, please enter a positive integer from 0 to " << sequencesV.size() << endl;
+						cout << "There isn't a sequence of that index, please enter a positive integer from 0 to " << sequencesV.size()-1 << endl;
 						cin.clear();
 						cin.ignore(1000, '\n');
 					}
@@ -159,6 +179,5 @@ int main(int argc, char* argv[])
 			else if (option != "1" && option != "2" && option != "3" && option != "9"){
 				cout << "Not an option that was correctly formatted." << endl;
 			}
-		
 	}
 }
