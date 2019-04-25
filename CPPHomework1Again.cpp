@@ -46,33 +46,7 @@ int main(int argc, char* argv[])
 					for (size_t i = 0; i < numOfVals; i++) {
 
 						double valDouble;
-						/*
-						bool isDouble = false;
-						string val;
-						while (!isDouble) {
-							cin >> val;
-							int decimal = 0;
-							for (size_t j = 0; j < val.size(); j++) {
-								if (!isdigit(val[j])) {
-									cout<<"Not a double"<<endl;
-									cin.clear();
-									cin.ignore(10000, '\n');
-									break;
-								}
-								if (val[j] == '.') {
-									decimal++;
-								}
-								if (decimal > 1) {
-									cout << "Incorrect input, only one decimal point allowed in a double" << endl;
-									cin.clear();
-									cin.ignore(10000, '\n');
-									break;
-								}
-
-							}
-							isDouble = true;
-						}
-						*/
+						
 						bool valid = false;
 						while (!valid) {
 							cout << "Enter value #" << i << ": ";
